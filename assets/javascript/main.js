@@ -26,7 +26,9 @@
   $("#explore").on("click", function() {
       $("#home").hide();
       $("#results").show();
-      var city = $('#destination').val().trim();
+      var stateCity = $('#destination').val().trim();
+      var city = stateCity.substr(3);
+      console.log(stateCity)
       console.log(city)
       var settings = {
           "async": true,
@@ -44,7 +46,7 @@
       $.ajax(settings).done(function(response) {
           console.log(response);
           console.log(city);
-          console.log(response)
+          console.log(response.places.activities);
 
 
 
@@ -52,7 +54,7 @@
           var weather = {
               "async": true,
               "crossDomain": true,
-              "url": "http://api.wunderground.com/api/d04d4a5c28ba5311/conditions/q/" + city + ".json",
+              "url": "http://api.wunderground.com/api/d04d4a5c28ba5311/conditions/q/" + stateCity + ".json",
               "method": "GET"
           }
 
