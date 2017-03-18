@@ -56,6 +56,20 @@
 
           $.ajax(weather).done(function(response) {
               console.log(response);
+              console.log(response.current_observation.temp_f);
+              console.log(response.current_observation.display_location.city);
+              console.log(response.current_observation.icon_url);
+              console.log(response.current_observation.local_time_rfc822);
+              console.log(response.current_observation.weather);
+              var weatherDiv = $('<div>').addClass('weatherDiv');
+              var weatherImg = $('<img>').addClass('weatherImg').attr('src', response.current_observation.icon_url);
+              weatherDiv.append(weatherImg).appendTo('.card-image');
+              var currentWeather = $('<div>').addClass('currentWeather');
+              var currentTemp = $('<p>').addClass('currTemp').text(response.current_observation.temp_f);
+              var currentLocation = $('<p>').addClass('location').text(response.current_observation.display_location.city);
+              var time = $('<p>').addClass('localTime').text(response.current_observation.local_time);
+              var forcast = $('<p>').addClass('forcast').text(response.current_observation.weather);
+              currentWeather.append(currentLocation, currentTemp, forcast).appendTo(".card-content");
           });
       });
   });
