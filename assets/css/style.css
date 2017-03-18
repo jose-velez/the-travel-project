@@ -1,0 +1,47 @@
+body {
+    background-image: url("background.jpg");
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.center-align {
+    color: #448aff
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+#trip-length {
+    text-align: center;
+}
+
+#destination {
+    text-align: center;
+}
+
+.nav-wrapper {
+    background-color: blue;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    opacity: 0.5;
+}
+
+#explore {
+    background-color: pink;
+}
+
+.input-field label {
+    color: black;
+}
+
+.home {
+    margin-left: 20px;
+}
