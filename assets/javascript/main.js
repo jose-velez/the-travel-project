@@ -3,6 +3,7 @@
   //  });
 
   $(document).ready(function() {
+      $("#results").hide();
       $(".dropdown-button").dropdown();
       var carousel_interval = 1000;
       $('.carousel').carousel();
@@ -23,12 +24,14 @@
   });
 
   $("#explore").on("click", function() {
+      $("#home").hide();
+      $("#results").show();
       var city = $('#destination').val().trim();
       console.log(city)
       var settings = {
           "async": true,
           "crossDomain": true,
-          "url": "https://trailapi-trailapi.p.mashape.com/?q%5Bcity_cont%5D=denver&limit=10",
+          "url": "https://trailapi-trailapi.p.mashape.com/?q%5Bcity_cont%5D=" + city + "&limit=10",
           "method": "GET",
           "headers": {
               "x-mashape-key": "8EIXIQVdijmshJoTnDa6TFps8GArp1zwCjwjsn0ng4oTPC4UUR",
@@ -47,7 +50,7 @@
       var weather = {
           "async": true,
           "crossDomain": true,
-          "url": "http://api.wunderground.com/api/d04d4a5c28ba5311/forecast/q/CO/denver.json",
+          "url": "http://api.wunderground.com/api/d04d4a5c28ba5311/forecast/q/" + city + ".json",
           "method": "GET",
           "headers": {
               "cache-control": "no-cache",
