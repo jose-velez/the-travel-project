@@ -19,6 +19,12 @@
       }
       $('.carousel').hover(stop, run);
       // this is the api call for the trails
+
+  });
+
+  $("#explore").on("click", function() {
+      var city = $('#destination').val().trim();
+      console.log(city)
       var settings = {
           "async": true,
           "crossDomain": true,
@@ -34,11 +40,11 @@
 
       $.ajax(settings).done(function(response) {
           console.log(response);
+
       });
 
-
-      // weather apivar settings = {
-      var settings = {
+      // weather api
+      var weather = {
           "async": true,
           "crossDomain": true,
           "url": "http://api.wunderground.com/api/d04d4a5c28ba5311/forecast/q/CO/denver.json",
@@ -49,10 +55,7 @@
           }
       }
 
-      $.ajax(settings).done(function(response) {
+      $.ajax(weather).done(function(response) {
           console.log(response);
       });
-
-      // google images api
-
   });
