@@ -43,22 +43,19 @@
 
       $.ajax(settings).done(function(response) {
           console.log(response);
+          console.log(city);
 
-      });
 
-      // weather api
-      var weather = {
-          "async": true,
-          "crossDomain": true,
-          "url": "http://api.wunderground.com/api/d04d4a5c28ba5311/forecast/q/" + city + ".json",
-          "method": "GET",
-          "headers": {
-              "cache-control": "no-cache",
-              "postman-token": "a7329511-332c-8bf6-6704-37ed1405df93"
+
+          var weather = {
+              "async": true,
+              "crossDomain": true,
+              "url": "http://api.wunderground.com/api/d04d4a5c28ba5311/conditions/q/" + city + ".json",
+              "method": "GET"
           }
-      }
 
-      $.ajax(weather).done(function(response) {
-          console.log(response);
+          $.ajax(weather).done(function(response) {
+              console.log(response);
+          });
       });
   });
