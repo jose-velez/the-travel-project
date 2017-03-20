@@ -1,6 +1,3 @@
-  //  $(document).ready(function() {
-  //      $('.carousel').carousel();
-  //  });
   function initMap() {
       var uluru = { lat: -25.363, lng: 131.044 };
       var map = new google.maps.Map(document.getElementById('map'), {
@@ -47,7 +44,7 @@
   $(document).ready(function() {
       $("#results").hide();
       $(".dropdown-button").dropdown();
-      var carousel_interval = 3000;
+      var carousel_interval = 1500;
 
       var int;
 
@@ -69,16 +66,10 @@
           $("#home").hide();
           $("#results").show();
           var stateCity = $('#autocomplete').val().trim();
-          console.log(stateCity);
           var split = stateCity.split(",");
-          console.log(split);
           var city = split[0];
           var state = split[1];
-          console.log(city);
-          console.log(state);
 
-
-          initMap();
           var settings = {
               "async": true,
               "crossDomain": true,
@@ -106,7 +97,7 @@
               }
               carouselDiv.appendTo('#carousel');
 
-              $('.carousel').carousel({ duration: 3000 });
+              $('.carousel').carousel({ duration: 1500 });
               $('.carousel').hover(stop, run);
 
 
