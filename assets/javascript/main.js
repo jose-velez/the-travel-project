@@ -77,9 +77,7 @@
           $("#home").hide();
           $("#results").show();
           var stateCity = $('#autocomplete').val().trim();
-          var city = stateCity.substr(3);
-          console.log(stateCity)
-          console.log(city)
+
           initMap();
           var settings = {
               "async": true,
