@@ -98,8 +98,9 @@
               var carouselDiv = $('<div>').addClass('carousel');
               for (var i = 0; i < 10; i++) {
                   if (response.places[i].activities[0]) {
-                      console.log(response.places[i].activities[0].thumbnail)
-                      var carouselImg = $('<img>').attr('src', response.places[i].activities[0].thumbnail);
+                      console.log(response.places[i].activities[0].thumbnail);
+                      console.log(response.places[i].activities[0].description);
+                      var carouselImg = $('<img>').addClass('carouselImg').attr('src', response.places[i].activities[0].thumbnail).attr('data', response.places[i].activities[0].description);
                       var carouselAtag = $('<a>').addClass("carousel-item");
                       carouselAtag.append(carouselImg).appendTo(carouselDiv);
                   }
@@ -137,4 +138,12 @@
               });
           });
       });
+
+
+  });
+
+  $("#carousel").on('click', ".carouselImg", function(event) {
+      console.log("click is working")
+      var info = $(event.target).attr("data");
+      $('#info').html(info);
   });
