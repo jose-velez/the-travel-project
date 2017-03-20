@@ -44,48 +44,66 @@
         <br>
         <br>
         <div class="row">
-            <div class="input-field col s4">
-                <div id="locationField">
-                    <input id="autocomplete" placeholder="Enter a destination" type="text" class="validate">
-                    <label for="autocomplete">Where are you going?</label>
+            <div class="pac-card" id="pac-card">
+                <div>
+                    <div id="title">
+                        Autocomplete search
+                    </div>
+                    <div id="type-selector" class="pac-controls">
+                        <input type="radio" name="type" id="changetype-all" checked="checked">
+                        <label for="changetype-all">Hiking</label>
+
+                        <input type="radio" name="type" id="changetype-establishment">
+                        <label for="changetype-establishment">Camping</label>
+
+                        <input type="radio" name="type" id="changetype-address">
+                        <label for="changetype-address">Mountain Bike Trails</label>
+                    </div>
+                    <div id="strict-bounds-selector" class="pac-controls">
+                        <input type="checkbox" id="use-strict-bounds" value="">
+                        <label for="use-strict-bounds">Strict Bounds</label>
+                    </div>
+                </div>
+                <div id="pac-container">
+                    <input id="pac-input" type="text" placeholder="Enter a location">
+                </div>
+                <div class="row">
+                    <p align="center">
+                        <a class="waves-effect waves-light btn offset-s4" id="explore">Explore</a>
+                    </p>
                 </div>
             </div>
-            <div class="row">
-                <p align="center">
-                    <a class="waves-effect waves-light btn offset-s4" id="explore">Explore</a>
-                </p>
-            </div>
-        </div>
-    </div>
-    <div class="container" id="results">
-        <div class="container">
-            <div class="row">
-                <div class="col s3">
-                    <div class="card">
-                        <div class="card-image">
-                            <span class="card-title">Weather</span>
+            <div class="container" id="results">
+                <div class="container">
+                    <div class="row">
+                        <div class="col s3">
+                            <div class="card">
+                                <div class="card-image">
+                                    <span class="card-title">Weather</span>
+                                </div>
+                                <div class="card-content">
+                                    <p>Current weather in</p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="card-content">
-                            <p>Current weather in</p>
+                        <div class="col s5 offset-s3" id="carousel">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s4">
+                            <p>What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
+                                scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
+                                sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                        </div>
+                        <div class="col s8">
+                            <div id="map">
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col s5 offset-s3" id="carousel">
-                </div>
             </div>
-            <div class="row">
-                <div class="col s4">
-                    <p>What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                </div>
-                <div class="col s8">
-                    <div id="map">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script src="assets/javascript/main.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBQY0MUaBs7yxoQ7FttjPHizkx86YqrMc&libraries=places&callback=initAutocomplete" async defer></script>
+            <script src="assets/javascript/main.js"></script>
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBQY0MUaBs7yxoQ7FttjPHizkx86YqrMc&libraries=places&callback=initAutocomplete" async defer></script>
 </body>
 
 </html>
