@@ -14,14 +14,6 @@
   }
   // Autocomplete API
   var placeSearch, autocomplete;
-  var componentForm = {
-      street_number: 'short_name',
-      route: 'long_name',
-      locality: 'long_name',
-      administrative_area_level_1: 'short_name',
-      country: 'long_name',
-      postal_code: 'short_name'
-  };
 
   function initAutocomplete() {
       // Create the autocomplete object, restricting the search to geographical
@@ -55,7 +47,7 @@
   $(document).ready(function() {
       $("#results").hide();
       $(".dropdown-button").dropdown();
-      var carousel_interval = 1000;
+      var carousel_interval = 3000;
 
       var int;
 
@@ -77,6 +69,14 @@
           $("#home").hide();
           $("#results").show();
           var stateCity = $('#autocomplete').val().trim();
+          console.log(stateCity);
+          var split = stateCity.split(",");
+          console.log(split);
+          var city = split[0];
+          var state = split[1];
+          console.log(city);
+          console.log(state);
+
 
           initMap();
           var settings = {
@@ -106,7 +106,7 @@
               }
               carouselDiv.appendTo('#carousel');
 
-              $('.carousel').carousel({ duration: 1000 });
+              $('.carousel').carousel({ duration: 3000 });
               $('.carousel').hover(stop, run);
 
 
@@ -114,7 +114,7 @@
               var weather = {
                   "async": true,
                   "crossDomain": true,
-                  "url": "http://api.wunderground.com/api/d04d4a5c28ba5311/conditions/q/" + stateCity + ".json",
+                  "url": "http://api.wunderground.com/api/d04d4a5c28ba5311/conditions/q/" + state + "/" + city + ".json",
                   "method": "GET"
               }
 
