@@ -45,3 +45,7 @@ main {
 .home {
     margin-left: 20px;
 }
+
+#description {
+    color: white;
+}
