@@ -123,7 +123,11 @@ function activitySearch(city) {
 
 
 $(document).ready(function() {
-
+    //var slideshowDiv = $("<div>").addClass("slideshow");
+    //for (i = 0; i < 11; i++) {
+    //    var slideshowImg = $("<img>").addClass("bmG").attr("src", "assets/images/" + i + ".jpg");
+    //    slideshowImg.appendTo(slideshowDiv);
+    //}
     $("#slideshow").hide();
     $("#results").hide();
     $(".dropdown-button").dropdown();
@@ -152,8 +156,8 @@ $(document).ready(function() {
             fx: 'fade',
             pager: '#smallnav',
             pause: 1,
-            speed: 4000,
-            timeout: 4000
+            speed: 3000,
+            timeout: 5000
         });
 
 

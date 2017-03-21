@@ -10,12 +10,12 @@ body {
     flex-direction: column;
 }
 
-.center-align {
-    color: #448aff
-}
-
 main {
     flex: 1 0 auto;
+}
+
+.center-align {
+    color: #448aff
 }
 
 #trip-length {
@@ -77,4 +77,8 @@ img.bgM {
     top: 0;
     left: 0;
     z-index: -9999;
+}
+
+.card {
+    color: white;
 }
