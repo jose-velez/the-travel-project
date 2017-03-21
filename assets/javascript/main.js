@@ -33,9 +33,10 @@ function geolocate() {
 
 function initMap() {
     initAutocomplete();
+    var myCenter = new google.maps.LatLng('@Model.Latitude', '@Model.Longitude');
     var map = new google.maps.Map(document.getElementById('map'), {
         zoom: 8,
-        center: { lat: -34.397, lng: 150.644 }
+        center: myCenter
     });
     var geocoder = new google.maps.Geocoder();
 
@@ -55,9 +56,11 @@ function geocodeAddress(geocoder, resultsMap) {
                 position: results[0].geometry.location
             });
             $("#map").css("display", "block");
+            google.maps.event.trigger(map, 'resize');
         } else {
             alert('Geocode was not successful for the following reason: ' + status);
         }
+
     });
 }
 
