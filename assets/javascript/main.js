@@ -115,8 +115,11 @@ $(document).ready(function() {
                 if (response.places[i].activities[0]) {
                     //console.log(response.places[i].activities[0].thumbnail);
                     //console.log(response.places[i].activities[0].description);
-                    var carouselImg = $('<img>').addClass('carouselImg').attr('src', response.places[i].activities[0].thumbnail).attr('data', response.places[i].activities[0].description);
-                    var carouselAtag = $('<a>').addClass("carousel-item");
+                    var carouselImg = $('<img>').addClass('carouselImg')
+                        .attr('src', response.places[i].activities[0].thumbnail)
+                        .attr('data-type', response.places[i].activities[0].activity_type_name)
+                        .attr('data-description', response.places[i].activities[0].description);
+                    var carouselAtag = $('<a>').addClass('carousel-item');
                     carouselAtag.append(carouselImg).appendTo(carouselDiv);
                 }
             }
@@ -153,9 +156,9 @@ $(document).ready(function() {
 
 
     $("#carousel").on('click', ".carouselImg", function(event) {
-        console.log("click is working")
-        var info = $(event.target).attr("data");
-        $('#info').html(info);
+        var type = $(event.target).attr("data-type");
+        var description = $(event.target).attr('data-description')
+        $('#info').html(type + "<br><br>" + description);
     });
 
 
