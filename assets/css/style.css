@@ -26,20 +26,19 @@ main {
     text-align: center;
 }
 
-.nav-wrapper {
-    background-color: blue;
+.header {
+    color: white;
     position: fixed;
     top: 0px;
     width: 100%;
-    opacity: 0.5;
 }
 
 #explore {
-    background-color: pink;
+    background-color: #4db6ac;
 }
 
 .input-field label {
-    color: black;
+    color: #4db6ac;
 }
 
 .home {
@@ -51,7 +50,19 @@ main {
 }
 
 #map {
-    width: 400px;
-    height: 400px;
+    width: 450px;
+    height: 300px;
     display: none;
+}
+
+.page-footer {
+    color: white;
+    text-align: center;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+}
+
+.location {
+    color: white;
 }
