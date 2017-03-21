@@ -72,7 +72,6 @@ function weatherSearch(city, state) {
     }
 
     $.ajax(weather).done(function(response) {
-        console.log(response);
         var weatherDiv = $('<div>').addClass('weatherDiv');
         var weatherImg = $('<img>').addClass('weatherImg').attr('src', response.current_observation.icon_url);
         weatherDiv.append(weatherImg).appendTo('.card-image');
@@ -90,19 +89,21 @@ function weatherSearch(city, state) {
 
 function activitySearch(city) {
     var settings = {
-        "async": true,
-        "crossDomain": true,
-        "url": "https://trailapi-trailapi.p.mashape.com/?q%5Bcity_cont%5D=" + city + "&limit=10",
-        "method": "GET",
-        "headers": {
-            "x-mashape-key": "8EIXIQVdijmshJoTnDa6TFps8GArp1zwCjwjsn0ng4oTPC4UUR",
-            "accept": "text/plain",
-            "cache-control": "no-cache",
-            "postman-token": "4b9bc18d-b74a-c8c1-8e97-6d5bb32bb471"
+            "async": true,
+            "crossDomain": true,
+            "url": "https://trailapi-trailapi.p.mashape.com/?q%5Bcity_cont%5D=" + city + "&limit=10",
+            "method": "GET",
+            "headers": {
+                "x-mashape-key": "8EIXIQVdijmshJoTnDa6TFps8GArp1zwCjwjsn0ng4oTPC4UUR",
+                "accept": "text/plain",
+                "cache-control": "no-cache",
+                "postman-token": "4b9bc18d-b74a-c8c1-8e97-6d5bb32bb471"
+            }
         }
-    }
+        //console.log(city);
 
     $.ajax(settings).done(function(response) {
+        console.log(response);
         var carouselDiv = $('<div>').addClass('carousel');
         for (var i = 0; i < 10; i++) {
             if (response.places[i].activities[0]) {
@@ -152,6 +153,7 @@ $(document).ready(function() {
         var split = stateCity.split(",");
         var city = split[0];
         var state = split[1];
+
         $('#slideshow').show().cycle({
             fx: 'fade',
             pager: '#smallnav',
@@ -160,13 +162,14 @@ $(document).ready(function() {
             timeout: 5000
         });
 
+        activitySearch(city);
+        weatherSearch(city, state);
 
 
 
         $('.carousel').carousel({ duration: 1000 });
         $('.carousel').hover(stop, run);
-        activitySearch(city);
-        weatherSearch(state, city);
+
 
 
 
