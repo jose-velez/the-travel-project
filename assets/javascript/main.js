@@ -12,7 +12,6 @@ function initAutocomplete() {
 
 }
 
-
 // Bias the autocomplete object to the user's geographical location,
 // as supplied by the browser's 'navigator.geolocation' object.
 function geolocate() {
@@ -125,10 +124,7 @@ function activitySearch(city) {
 
 $(document).ready(function() {
 
-
-
-
-
+    $("#slideshow").hide();
     $("#results").hide();
     $(".dropdown-button").dropdown();
     var carousel_interval = 1000;
@@ -145,9 +141,6 @@ $(document).ready(function() {
         clearInterval(int);
     }
 
-
-
-
     $("#explore").on("click", function() {
         $("#home").hide();
         $("#results").show();
@@ -155,6 +148,14 @@ $(document).ready(function() {
         var split = stateCity.split(",");
         var city = split[0];
         var state = split[1];
+        $('#slideshow').show().cycle({
+            fx: 'fade',
+            pager: '#smallnav',
+            pause: 1,
+            speed: 4000,
+            timeout: 4000
+        });
+
 
 
 
@@ -162,6 +163,7 @@ $(document).ready(function() {
         $('.carousel').hover(stop, run);
         activitySearch(city);
         weatherSearch(state, city);
+
 
 
 
