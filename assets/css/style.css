@@ -81,4 +81,8 @@ img.bgM {
 
 .card {
     color: white;
+    max-height: 100%;
+    position: fixed;
+    top: 57px;
+    left: 50px;
 }
