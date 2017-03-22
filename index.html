@@ -17,25 +17,55 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
     <!-- Link to CSS -->
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-    <title>ReadySetGo</title>
+    <title>GetOutandGo</title>
 </head>
 
 <body>
-    <ul id="dropdown1" class="dropdown-content">
-        <li><a href="#!">one</a></li>
-        <li><a href="#!">two</a></li>
-        <li class="divider"></li>
-        <li><a href="#!">three</a></li>
-    </ul>
-    <nav>
-        <div class="nav-wrapper">
-            <a href="index.html" class="home">Home</a>
-            <ul class="right hide-on-med-and-down">
-                <!-- Dropdown Trigger -->
-                <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Recent Searches<i class="material-icons right"></i></a></li>
-            </ul>
-        </div>
-    </nav>
+    <div id="slideshow">
+        <img src="assets/images/0.jpg" class="bgM">
+        <img src="assets/images/1.jpg" class="bgM">
+        <img src="assets/images/2.jpg" class="bgM">
+        <img src="assets/images/3.jpg" class="bgM">
+        <img src="assets/images/4.jpg" class="bgM">
+        <img src="assets/images/5.jpg" class="bgM">
+        <img src="assets/images/6.jpg" class="bgM">
+        <img src="assets/images/7.jpg" class="bgM">
+        <img src="assets/images/8.jpg" class="bgM">
+        <img src="assets/images/9.jpg" class="bgM">
+        <img src="assets/images/10.jpg" class="bgM">
+        <img src="assets/images/11.jpg" class="bgM">
+        <img src="assets/images/13.jpg" class="bgM">
+        <img src="assets/images/14.jpg" class="bgM">
+        <img src="assets/images/15.jpg" class="bgM">
+        <img src="assets/images/16.jpg" class="bgM">
+        <img src="assets/images/17.jpg" class="bgM">
+        <img src="assets/images/18.jpg" class="bgM">
+        <img src="assets/images/19.jpg" class="bgM">
+        <img src="assets/images/20.jpg" class="bgM">
+    </div>
+    <div class="header">
+        <ul id="dropdown1" class="dropdown-content">
+            <li>
+                <a href="#!"></a>
+            </li>
+            <li>
+                <a href="#!"></a>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <a href="#!"></a>
+            </li>
+        </ul>
+        <nav class="transparent">
+            <div class="nav-wrapper">
+                <a href="index.html" class="home">Home</a>
+                <ul class="right hide-on-med-and-down">
+                    <!-- Dropdown Trigger -->
+                    <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Recent Searches<i class="material-icons right"></i></a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
     <div class="container" id="home">
         <br>
         <br>
@@ -44,46 +74,57 @@
         <br>
         <br>
         <div class="row">
-            <div class="input-field col s4">
-                <div id="locationField">
-                    <input id="autocomplete" placeholder="Enter a destination" type="text" class="validate">
-                    <label for="autocomplete">Where are you going?</label>
+            <div class="input-field col s4 offset-s4 center-align">
+                <div id="locationField" class="center-align">
+                    <input id="autocomplete" placeholder="Enter a Location" type="text" class="validate center-align">
+                    <label for="autocomplete" class="center-align location"></label>
                 </div>
             </div>
-            <div class="row">
-                <p align="center">
-                    <a class="waves-effect waves-light btn offset-s4" id="explore">Explore</a>
-                </p>
-            </div>
         </div>
+        <div class="row">
+            <p align="center">
+                <a class="waves-effect waves-light btn offset-s4" id="explore">Explore</a>
+            </p>
+        </div>
+    </div>
     </div>
     <div class="container" id="results">
-        <div class="container">
-            <div class="row">
-                <div class="col s3">
-                    <div class="card">
-                        <div class="card-image">
-                            <span class="card-title">Weather</span>
-                        </div>
-                        <div class="card-content">
-                            <p>Current weather in</p>
-                        </div>
+        <div class="row">
+            <div class="col s3">
+                <div class="card transparent">
+                    <div class="card-image right">
+                        <span class="card-title"></span>
                     </div>
-                </div>
-                <div class="col s5 offset-s3" id="carousel">
+                    <div class="card-content">
+                        <p></p>
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col s12" id="description">
-                    <p id="info"></p>
-                </div>
-                <div class="col s8">
-                    <div id="map">
-                    </div>
+            <div class="col s5 offset-s4" id="carousel">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12" id="description">
+                <p id="info"></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col 12 offset-s2">
+                <div id="map">
                 </div>
             </div>
         </div>
     </div>
+    <br>
+    <br>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright">
+            <div class="container">
+                © 2017 UCF Coding Bootcamp Team GetOutandGo
+            </div>
+        </div>
+    </footer>
+    <script src="assets/javascript/cycle.js"></script>
     <script src="assets/javascript/main.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBQY0MUaBs7yxoQ7FttjPHizkx86YqrMc&libraries=places&callback=initMap" async defer></script>
 </body>
