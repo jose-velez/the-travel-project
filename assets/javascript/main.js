@@ -86,8 +86,8 @@ function mapCode(city, state) {
     }
     $.ajax(gps).done(function(response) {
         console.log(response);
-        var lat = response.geometry.location.lat;
-        var long = response.geometry.location.long;
+        var lat = response.results[0].geometry.location.lat;
+        var long = response.results[0].geometry.location.lng;
         console.log(lat);
         console.log(long);
         initMap(lat, long);
@@ -122,6 +122,9 @@ function activitySearch(city) {
             }
         }
         carouselDiv.appendTo('#carousel');
+
+        $('.carousel').carousel({ duration: 1000 });
+        $('.carousel').hover(stop, run);
     });
 
 }
@@ -162,6 +165,7 @@ $(document).ready(function() {
         activitySearch(city);
         weatherSearch(city, state);
         mapCode(city, state);
+
         $('#slideshow').show().cycle({
             fx: 'fade',
             pager: '#smallnav',
@@ -169,14 +173,6 @@ $(document).ready(function() {
             speed: 3000,
             timeout: 5000
         });
-
-        $('.carousel').carousel({ duration: 1000 });
-        $('.carousel').hover(stop, run);
-
-
-
-
-
 
     });
 });
