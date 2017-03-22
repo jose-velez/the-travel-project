@@ -12,19 +12,6 @@ function initAutocomplete() {
 
 }
 
-// Bias the autocomplete object to the user's geographical location,
-// as supplied by the browser's 'navigator.geolocation' object.
-//function geolocate() {
-//    if (navigator.geolocation) {
-//        navigator.geolocation.getCurrentPosition(function(position) {
-//            var geolocation = {
-//                lng: position.coords.longitude
-//            var circle = new google.maps.Circle({
-//                center: geolocation,
-//                radius: position.coords.accuracy
-//            });
-//        });
-//}
 //Function for initiallizing the google map with the data from the user entered location
 function initMap(lat, long) {
     initAutocomplete();
@@ -34,6 +21,11 @@ function initMap(lat, long) {
         center: myCenter
     });
     var geocoder = new google.maps.Geocoder();
+    //var marker = new google.maps.Marker({
+    //    position: myCenter,
+    //    map: map
+    //  });
+
 
     document.getElementById('explore').addEventListener('click', function() {
         geocodeAddress(geocoder, map);
@@ -93,8 +85,11 @@ function mapCode(city, state) {
         "method": "GET"
     }
     $.ajax(gps).done(function(response) {
-        var lat = response.location.lat;
-        var long = response.location.long;
+        console.log(response);
+        var lat = response.geometry.location.lat;
+        var long = response.geometry.location.long;
+        console.log(lat);
+        console.log(long);
         initMap(lat, long);
     });
 }
