@@ -1,88 +1,113 @@
-body {
-    background-image: url("background.jpg");
-    background-repeat: no-repeat;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-}
-
-main {
-    flex: 1 0 auto;
-}
-
-.center-align {
-    color: #448aff
-}
-
-#trip-length {
-    text-align: center;
-}
-
-#destination {
-    text-align: center;
-}
-
-.header {
-    color: white;
-    position: fixed;
-    top: 0px;
-    width: 100%;
-}
-
-#explore {
-    background-color: #4db6ac;
-}
-
-.input-field label {
-    color: #4db6ac;
-}
-
-.home {
-    margin-left: 20px;
-}
-
-#description {
-    color: white;
-}
-
-#map {
-    width: 450px;
-    height: 300px;
-    display: none;
-}
-
-.page-footer {
-    color: white;
-    text-align: center;
-    position: fixed;
-    bottom: 0px;
-    width: 100%;
-}
-
-.location {
-    color: white;
-}
-
-#slideshow,
-img.bgM {
-    min-height: 100%;
-    min-width: 1024px;
-    width: 100%;
-    height: auto;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: -9999;
-}
-
-.card {
-    color: white;
-    max-height: 100%;
-    position: fixed;
-    top: 57px;
-    left: 50px;
-}
+    body {
+        background-image: url("background.jpg");
+        background-repeat: no-repeat;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        display: flex;
+        min-height: 100vh;
+        flex-direction: column;
+    }
+    
+    main {
+        flex: 1 0 auto;
+    }
+    
+    .center-align {
+        color: #448aff
+    }
+    
+    #trip-length {
+        text-align: center;
+    }
+    
+    #destination {
+        text-align: center;
+    }
+    
+    .header {
+        color: white;
+        position: fixed;
+        top: 0px;
+        width: 100%;
+    }
+    
+    #explore {
+        background-color: #4db6ac;
+    }
+    
+    .input-field label {
+        color: black;
+    }
+    
+    .input-placeholder {
+        color: black;
+    }
+    
+    .home {
+        margin-left: 20px;
+    }
+    
+    #description {
+        color: white;
+    }
+    
+    #map {
+        width: 450px;
+        height: 300px;
+        position: absolute;
+        bottom: 50px;
+    }
+    
+    .page-footer {
+        color: white;
+        text-align: center;
+        position: fixed;
+        bottom: 0px;
+        width: 100%;
+    }
+    
+    .location {
+        color: white;
+    }
+    
+    #slideshow,
+    img.bgM {
+        min-height: 100%;
+        min-width: 1024px;
+        width: 100%;
+        height: auto;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: -9999;
+    }
+    
+    .card {
+        color: white;
+        max-height: 100%;
+        position: fixed;
+        top: 57px;
+        left: 50px;
+    }
+    
+    #autocomplete {
+        color: white;
+    }
+    
+    .input-field {
+        color: white;
+    }
+    
+    .validate {
+        color: black;
+    }
+    
+    .active {
+        color: black;
+    }
+    
+    ::-webkit-input-placeholder {
+        color: white;
+    }

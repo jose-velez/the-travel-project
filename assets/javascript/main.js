@@ -14,25 +14,21 @@ function initAutocomplete() {
 
 // Bias the autocomplete object to the user's geographical location,
 // as supplied by the browser's 'navigator.geolocation' object.
-function geolocate() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            var geolocation = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-            };
-            var circle = new google.maps.Circle({
-                center: geolocation,
-                radius: position.coords.accuracy
-            });
-            autocomplete.setBounds(circle.getBounds());
-        });
-    }
-}
-
-function initMap() {
+//function geolocate() {
+//    if (navigator.geolocation) {
+//        navigator.geolocation.getCurrentPosition(function(position) {
+//            var geolocation = {
+//                lng: position.coords.longitude
+//            var circle = new google.maps.Circle({
+//                center: geolocation,
+//                radius: position.coords.accuracy
+//            });
+//        });
+//}
+//Function for initiallizing the google map with the data from the user entered location
+function initMap(lat, long) {
     initAutocomplete();
-    var myCenter = new google.maps.LatLng('@Model.Latitude', '@Model.Longitude');
+    var myCenter = { lat, long };
     var map = new google.maps.Map(document.getElementById('map'), {
         zoom: 8,
         center: myCenter
@@ -44,7 +40,7 @@ function initMap() {
     });
 
 }
-
+//Google autocomplete function
 function geocodeAddress(geocoder, resultsMap) {
     var address = document.getElementById('autocomplete').value;
     geocoder.geocode({ 'address': address }, function(results, status) {
@@ -63,6 +59,7 @@ function geocodeAddress(geocoder, resultsMap) {
     });
 }
 
+//Function that does an API call from WeatherUnderground from the user entered data
 function weatherSearch(city, state) {
     var weather = {
         "async": true,
@@ -87,28 +84,40 @@ function weatherSearch(city, state) {
 
 }
 
+//Function to get the longitude/latitude from the City entered for map building purposes
+function mapCode(city, state) {
+    var gps = {
+        "async": true,
+        "crossDomain": true,
+        "url": "https://maps.googleapis.com/maps/api/geocode/json?address=" + city + state + "&key=AIzaSyBBQY0MUaBs7yxoQ7FttjPHizkx86YqrMc",
+        "method": "GET"
+    }
+    $.ajax(gps).done(function(response) {
+        var lat = response.location.lat;
+        var long = response.location.long;
+        initMap(lat, long);
+    });
+}
+
+//Function that does an API call from trailAPI from the user entered data
 function activitySearch(city) {
     var settings = {
-            "async": true,
-            "crossDomain": true,
-            "url": "https://trailapi-trailapi.p.mashape.com/?q%5Bcity_cont%5D=" + city + "&limit=10",
-            "method": "GET",
-            "headers": {
-                "x-mashape-key": "8EIXIQVdijmshJoTnDa6TFps8GArp1zwCjwjsn0ng4oTPC4UUR",
-                "accept": "text/plain",
-                "cache-control": "no-cache",
-                "postman-token": "4b9bc18d-b74a-c8c1-8e97-6d5bb32bb471"
-            }
+        "async": true,
+        "crossDomain": true,
+        "url": "https://trailapi-trailapi.p.mashape.com/?q%5Bcity_cont%5D=" + city + "&limit=10",
+        "method": "GET",
+        "headers": {
+            "x-mashape-key": "8EIXIQVdijmshJoTnDa6TFps8GArp1zwCjwjsn0ng4oTPC4UUR",
+            "accept": "text/plain",
+            "cache-control": "no-cache",
+            "postman-token": "4b9bc18d-b74a-c8c1-8e97-6d5bb32bb471"
         }
-        //console.log(city);
+    }
 
     $.ajax(settings).done(function(response) {
-        console.log(response);
         var carouselDiv = $('<div>').addClass('carousel');
         for (var i = 0; i < 10; i++) {
             if (response.places[i].activities[0]) {
-                //console.log(response.places[i].activities[0].thumbnail);
-                //console.log(response.places[i].activities[0].description);
                 var carouselImg = $('<img>').addClass('carouselImg')
                     .attr('src', response.places[i].activities[0].thumbnail)
                     .attr('data-type', response.places[i].activities[0].activity_type_name)
@@ -123,12 +132,14 @@ function activitySearch(city) {
 }
 
 
+
+
+//Document ready function and where the user data actually gets grabbed
 $(document).ready(function() {
-    //var slideshowDiv = $("<div>").addClass("slideshow");
-    //for (i = 0; i < 11; i++) {
-    //    var slideshowImg = $("<img>").addClass("bmG").attr("src", "assets/images/" + i + ".jpg");
-    //    slideshowImg.appendTo(slideshowDiv);
-    //}
+    //for (i = 0; i < 21; i++) {
+    //   var slideshowImg = $("<img>").addClass("bmG").attr("src", "assets/images/" + i + ".jpg");
+    //    slideshowImg.appendTo("#slideshow");
+    // }
     $("#slideshow").hide();
     $("#results").hide();
     $(".dropdown-button").dropdown();
@@ -153,7 +164,9 @@ $(document).ready(function() {
         var split = stateCity.split(",");
         var city = split[0];
         var state = split[1];
-
+        activitySearch(city);
+        weatherSearch(city, state);
+        mapCode(city, state);
         $('#slideshow').show().cycle({
             fx: 'fade',
             pager: '#smallnav',
@@ -161,11 +174,6 @@ $(document).ready(function() {
             speed: 3000,
             timeout: 5000
         });
-
-        activitySearch(city);
-        weatherSearch(city, state);
-
-
 
         $('.carousel').carousel({ duration: 1000 });
         $('.carousel').hover(stop, run);
