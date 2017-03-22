@@ -13,18 +13,17 @@ function initAutocomplete() {
 }
 
 //Function for initiallizing the google map with the data from the user entered location
-function initMap(lat, long) {
+function initMap(myLat, myLong) {
     initAutocomplete();
-    var myCenter = { lat, long };
+    var myCenter = { lat: myLat, lng: myLong };
     var map = new google.maps.Map(document.getElementById('map'), {
         zoom: 8,
         center: myCenter
     });
-    var geocoder = new google.maps.Geocoder();
-    //var marker = new google.maps.Marker({
-    //    position: myCenter,
-    //    map: map
-    //  });
+    var marker = new google.maps.Marker({
+        position: myCenter,
+        map: map
+    });
 
 
     document.getElementById('explore').addEventListener('click', function() {
@@ -88,9 +87,11 @@ function mapCode(city, state) {
         console.log(response);
         var lat = response.results[0].geometry.location.lat;
         var long = response.results[0].geometry.location.lng;
+        var myLat = parseFloat(lat);
+        var myLong = parseFloat(long);
         console.log(lat);
         console.log(long);
-        initMap(lat, long);
+        initMap(myLat, myLong);
     });
 }
 
@@ -124,7 +125,7 @@ function activitySearch(city) {
         carouselDiv.appendTo('#carousel');
 
         $('.carousel').carousel({ duration: 1000 });
-        $('.carousel').hover(stop, run);
+
     });
 
 }
@@ -156,6 +157,7 @@ $(document).ready(function() {
     }
 
     $("#explore").on("click", function() {
+        run();
         $("#home").hide();
         $("#results").show();
         var stateCity = $('#autocomplete').val().trim();
@@ -175,6 +177,7 @@ $(document).ready(function() {
         });
 
     });
+    $('.carousel').hover(stop, run);
 });
 
 
@@ -182,4 +185,19 @@ $("#carousel").on('click', ".carouselImg", function(event) {
     var type = $(event.target).attr("data-type");
     var description = $(event.target).attr('data-description')
     $('#info').html(type + "<br><br>" + description);
+    stop();
 });
+
+
+
+
+
+
+//#info {
+//    position: fixed;
+//    height: 200px;
+//   bottom: 50px;
+//   left: 100px;
+//   border: 1px solid;
+//   overflow: auto;
+//}
