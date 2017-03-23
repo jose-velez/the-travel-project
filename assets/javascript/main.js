@@ -24,13 +24,8 @@ function initMap(myLat, myLong) {
         position: myCenter,
         map: map
     });
-
-
-    document.getElementById('explore').addEventListener('click', function() {
-        geocodeAddress(geocoder, map);
-    });
-
 }
+
 //Google autocomplete function
 function geocodeAddress(geocoder, resultsMap) {
     var address = document.getElementById('autocomplete').value;
@@ -114,6 +109,9 @@ function activitySearch(city) {
         var carouselDiv = $('<div>').addClass('carousel');
         for (var i = 0; i < 10; i++) {
             if (response.places[i].activities[0]) {
+                console.log(response.places[i].lat);
+                console.log(response.places[i].lon);
+                console.log(response.places[i].directions);
                 var carouselImg = $('<img>').addClass('carouselImg')
                     .attr('src', response.places[i].activities[0].thumbnail)
                     .attr('data-type', response.places[i].activities[0].activity_type_name)
@@ -187,17 +185,3 @@ $("#carousel").on('click', ".carouselImg", function(event) {
     $('#info').html(type + "<br><br>" + description);
     stop();
 });
-
-
-
-
-
-
-//#info {
-//    position: fixed;
-//    height: 200px;
-//   bottom: 50px;
-//   left: 100px;
-//   border: 1px solid;
-//   overflow: auto;
-//}

@@ -68,12 +68,17 @@
         right: 100px;
     }
     
+    .carousel-item img {
+        width: 200px;
+        height: 200px;
+    }
+    
     .page-footer {
         color: white;
         text-align: center;
         position: fixed;
         bottom: 0px;
-        width: 80%;
+        width: 100%;
     }
     
     .location {
