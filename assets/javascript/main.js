@@ -80,13 +80,10 @@ function mapCode(city, state) {
         "method": "GET"
     }
     $.ajax(gps).done(function(response) {
-        console.log(response);
         var lat = response.results[0].geometry.location.lat;
         var long = response.results[0].geometry.location.lng;
         var myLat = parseFloat(lat);
         var myLong = parseFloat(long);
-        console.log(lat);
-        console.log(long);
         initMap(myLat, myLong);
     });
 }
@@ -107,8 +104,9 @@ function activitySearch(city) {
     }
 
     $.ajax(settings).done(function(response) {
+        console.log(response);
         var carouselDiv = $('<div>').addClass('carousel');
-        for (var i = 0; i < 10; i++) {
+        for (var i = 0; i < response.places.length; i++) {
             if (response.places[i].activities[0]) {
                 var carouselImg = $('<img>').addClass('carouselImg')
                     .attr('src', response.places[i].activities[0].thumbnail)
@@ -117,7 +115,6 @@ function activitySearch(city) {
                     .attr('data-latitude', response.places[i].lat)
                     .attr('data-longitude', response.places[i].lon)
                     .attr('data-directions', response.places[i].directions);
-                console.log(response.places[i].directions);
                 var carouselAtag = $('<a>').addClass('carousel-item');
                 carouselAtag.append(carouselImg).appendTo(carouselDiv);
             }
