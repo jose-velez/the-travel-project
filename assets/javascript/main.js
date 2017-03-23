@@ -1,3 +1,16 @@
+//firebase
+var config = {
+    apiKey: "AIzaSyDlROAKalBipjSv9O4KuOuytF68mfv2X-A",
+    authDomain: "hiking-project.firebaseapp.com",
+    databaseURL: "https://hiking-project.firebaseio.com",
+    storageBucket: "hiking-project.appspot.com",
+    messagingSenderId: "46073004583"
+};
+firebase.initializeApp(config);
+
+var database = firebase.database();
+
+
 // Autocomplete API
 var placeSearch, autocomplete;
 
@@ -15,7 +28,10 @@ function initAutocomplete() {
 //Function for initiallizing the google map with the data from the user entered location
 function initMap(lat, long) {
     initAutocomplete();
-    var myCenter = { lat, long };
+    var myCenter = {
+        lat,
+        long
+    };
     var map = new google.maps.Map(document.getElementById('map'), {
         zoom: 8,
         center: myCenter
@@ -35,7 +51,9 @@ function initMap(lat, long) {
 //Google autocomplete function
 function geocodeAddress(geocoder, resultsMap) {
     var address = document.getElementById('autocomplete').value;
-    geocoder.geocode({ 'address': address }, function(results, status) {
+    geocoder.geocode({
+        'address': address
+    }, function(results, status) {
         if (status === 'OK') {
             resultsMap.setCenter(results[0].geometry.location);
             var marker = new google.maps.Marker({
@@ -123,8 +141,10 @@ function activitySearch(city) {
         }
         carouselDiv.appendTo('#carousel');
 
-        $('.carousel').carousel({ duration: 1000 });
-        $('.carousel').hover(stop, run);
+        $('.carousel').carousel({
+            duration: 1000
+        });
+        
     });
 
 }
@@ -134,52 +154,121 @@ function activitySearch(city) {
 
 //Document ready function and where the user data actually gets grabbed
 $(document).ready(function() {
-    //for (i = 0; i < 21; i++) {
-    //   var slideshowImg = $("<img>").addClass("bmG").attr("src", "assets/images/" + i + ".jpg");
-    //    slideshowImg.appendTo("#slideshow");
-    // }
-    $("#slideshow").hide();
-    $("#results").hide();
-    $(".dropdown-button").dropdown();
-    var carousel_interval = 1000;
+            //for (i = 0; i < 21; i++) {
+            //   var slideshowImg = $("<img>").addClass("bmG").attr("src", "assets/images/" + i + ".jpg");
+            //    slideshowImg.appendTo("#slideshow");
+            // }
+            $("#slideshow").hide();
+            $("#results").hide();
+            $(".dropdown-button").dropdown();
+            var carousel_interval = 1000;
 
-    var int;
+            var int;
 
-    function run() {
-        int = setInterval(function() {
-            $('.carousel').carousel('next');
-        }, carousel_interval);
-    }
+            function run() {
+                int = setInterval(function() {
+                    $('.carousel').carousel('next');
+                }, carousel_interval);
+            }
 
-    function stop() {
-        clearInterval(int);
-    }
+            function stop() {
+                clearInterval(int);
+            }
 
-    $("#explore").on("click", function() {
-        $("#home").hide();
-        $("#results").show();
-        var stateCity = $('#autocomplete').val().trim();
-        var split = stateCity.split(",");
-        var city = split[0];
-        var state = split[1];
-        activitySearch(city);
-        weatherSearch(city, state);
-        mapCode(city, state);
+            $("#explore").on("click", function() {
+                $("#home").hide();
+                $("#results").show();
+                var stateCity = $('#autocomplete').val().trim();
+                var split = stateCity.split(",");
+                var city = split[0];
+                var state = split[1];
+                activitySearch(city);
+                weatherSearch(city, state);
+                mapCode(city, state);
 
-        $('#slideshow').show().cycle({
-            fx: 'fade',
-            pager: '#smallnav',
-            pause: 1,
-            speed: 3000,
-            timeout: 5000
-        });
+                $('#slideshow').show().cycle({
+                    fx: 'fade',
+                    pager: '#smallnav',
+                    pause: 1,
+                    speed: 3000,
+                    timeout: 5000
+                });
+                // Pushing the cities to firebase
+                database.ref().push({
+                    city: stateCity
+                });
+            });
 
-    });
+            //  Calling the firebase to display the recent searches
+
+            database.ref().on("value", function(snapshot) {
+                var city = snapshot.val();
+                console.log(city);
+                var cityArr = Object.keys(city);
+                console.log(cityArr);
+                arrLength = cityArr.length - 1;
+                lastFive = (cityArr.length - 5);
+                console.log(arrLength);
+                console.log(lastFive);
+                var search = [];
+                var j = 0;
+                var lastKeys = [];
+                //For loop to get the last 5 recent searches
+                for (var i = arrLength; i > lastFive; i--) {
+                    console.log("is working");
+                    search[j] = cityArr[i];
+                    j++;
+                }
+                var lastObjs = [];
+                var displayCity = [];
+                for (var i = 0; i < search.length; i++) {
+                    lastObjs[i] = city[search[i]];
+                    displayCity[i] = lastObjs[i].city;
+                }
+                console.log(lastObjs);
+                console.log(displayCity);
+                for (i = 0; i < displayCity.length; i++) {
+                    var list = $('<li>').addClass('recentCity')
+                    list.attr("data", displayCity[i]);
+                    var recentCity = displayCity[i];
+                    list.append(recentCity).appendTo('#dropdown1');
+                }
+
+
+
+
+
+            });
+
+            $("#dropdown1").on("click", ".recentCity", function(event) {
+                console.log("is working");
+                $("#home").hide();
+                $("#results").show();
+                var stateCity = $(this).attr("data");
+                console.log(stateCity);
+                var split = stateCity.split(",");
+                var city = split[0];
+                var state = split[1];
+                console.log(split);
+                console.log(city);
+                console.log(state);
+                activitySearch(city);
+                weatherSearch(city, state);
+                mapCode(city, state);
+
+                $('#slideshow').show().cycle({
+                    fx: 'fade',
+                    pager: '#smallnav',
+                    pause: 1,
+                    speed: 3000,
+                    timeout: 5000
+
+                })
+            });
+
 });
-
-
-$("#carousel").on('click', ".carouselImg", function(event) {
-    var type = $(event.target).attr("data-type");
-    var description = $(event.target).attr('data-description')
-    $('#info').html(type + "<br><br>" + description);
-});
+            $("#carousel").on('click', ".carouselImg", function(event) {
+                var type = $(event.target).attr("data-type");
+                var description = $(event.target).attr('data-description')
+                $('#info').html(type + "<br><br>" + description);
+            });
