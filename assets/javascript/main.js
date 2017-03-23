@@ -26,28 +26,20 @@ function initAutocomplete() {
 }
 
 //Function for initiallizing the google map with the data from the user entered location
-function initMap(lat, long) {
+function initMap(myLat, myLong) {
     initAutocomplete();
-    var myCenter = {
-        lat,
-        long
-    };
+
+    var myCenter = { lat: myLat, lng: myLong };
     var map = new google.maps.Map(document.getElementById('map'), {
         zoom: 8,
         center: myCenter
     });
-    var geocoder = new google.maps.Geocoder();
-    //var marker = new google.maps.Marker({
-    //    position: myCenter,
-    //    map: map
-    //  });
-
-
-    document.getElementById('explore').addEventListener('click', function() {
-        geocodeAddress(geocoder, map);
+    var marker = new google.maps.Marker({
+        position: myCenter,
+        map: map
     });
-
 }
+
 //Google autocomplete function
 function geocodeAddress(geocoder, resultsMap) {
     var address = document.getElementById('autocomplete').value;
@@ -103,12 +95,14 @@ function mapCode(city, state) {
         "method": "GET"
     }
     $.ajax(gps).done(function(response) {
-        console.log(response);
+        //console.log(response);
         var lat = response.results[0].geometry.location.lat;
         var long = response.results[0].geometry.location.lng;
-        console.log(lat);
-        console.log(long);
-        initMap(lat, long);
+        var myLat = parseFloat(lat);
+        var myLong = parseFloat(long);
+        //console.log(lat);
+        //console.log(long);
+        initMap(myLat, myLong);
     });
 }
 
@@ -131,6 +125,9 @@ function activitySearch(city) {
         var carouselDiv = $('<div>').addClass('carousel');
         for (var i = 0; i < 10; i++) {
             if (response.places[i].activities[0]) {
+                //console.log(response.places[i].lat);
+                //console.log(response.places[i].lon);
+                //console.log(response.places[i].directions);
                 var carouselImg = $('<img>').addClass('carouselImg')
                     .attr('src', response.places[i].activities[0].thumbnail)
                     .attr('data-type', response.places[i].activities[0].activity_type_name)
@@ -144,7 +141,9 @@ function activitySearch(city) {
         $('.carousel').carousel({
             duration: 1000
         });
-        
+
+
+        $('.carousel').carousel({ duration: 1000 });
     });
 
 }
@@ -165,6 +164,7 @@ $(document).ready(function() {
 
             var int;
 
+
             function run() {
                 int = setInterval(function() {
                     $('.carousel').carousel('next');
@@ -176,6 +176,7 @@ $(document).ready(function() {
             }
 
             $("#explore").on("click", function() {
+                run();
                 $("#home").hide();
                 $("#results").show();
                 var stateCity = $('#autocomplete').val().trim();
@@ -241,6 +242,7 @@ $(document).ready(function() {
             });
 
             $("#dropdown1").on("click", ".recentCity", function(event) {
+                run();
                 console.log("is working");
                 $("#home").hide();
                 $("#results").show();
@@ -267,8 +269,11 @@ $(document).ready(function() {
             });
 
 });
-            $("#carousel").on('click', ".carouselImg", function(event) {
-                var type = $(event.target).attr("data-type");
-                var description = $(event.target).attr('data-description')
-                $('#info').html(type + "<br><br>" + description);
-            });
+
+
+$("#carousel").on('click', ".carouselImg", function(event) {
+    var type = $(event.target).attr("data-type");
+    var description = $(event.target).attr('data-description')
+    $('#info').html(type + "<br><br>" + description);
+    stop();
+});
