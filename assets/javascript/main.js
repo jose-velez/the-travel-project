@@ -236,8 +236,10 @@ $(document).ready(function() {
                     var list = $('<li>').addClass('recentCity')
                     list.attr("data", displayCity[i]);
                     var recentCity = displayCity[i];
-                    list.append(recentCity).appendTo('#dropdown1');
+                    list.append(recentCity);
+
                 }
+                  $("#dropdown1").html(list);
 
 
 
