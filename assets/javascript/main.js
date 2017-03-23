@@ -1,5 +1,5 @@
 // Autocomplete API
-var placeSearch, autocomplete;
+var placeSearch, autocomplete, map;
 
 function initAutocomplete() {
     // Create the autocomplete object, restricting the search to geographical
@@ -16,7 +16,7 @@ function initAutocomplete() {
 function initMap(myLat, myLong) {
     initAutocomplete();
     var myCenter = { lat: myLat, lng: myLong };
-    var map = new google.maps.Map(document.getElementById('map'), {
+    map = new google.maps.Map(document.getElementById('map'), {
         zoom: 8,
         center: myCenter
     });
@@ -24,6 +24,7 @@ function initMap(myLat, myLong) {
         position: myCenter,
         map: map
     });
+
 }
 
 //Google autocomplete function
@@ -109,13 +110,16 @@ function activitySearch(city) {
         var carouselDiv = $('<div>').addClass('carousel');
         for (var i = 0; i < 10; i++) {
             if (response.places[i].activities[0]) {
-                console.log(response.places[i].lat);
-                console.log(response.places[i].lon);
-                console.log(response.places[i].directions);
+                //console.log(response.places[i].lat);
+                //console.log(response.places[i].lon);
+                //console.log(response.places[i].directions);
                 var carouselImg = $('<img>').addClass('carouselImg')
                     .attr('src', response.places[i].activities[0].thumbnail)
                     .attr('data-type', response.places[i].activities[0].activity_type_name)
-                    .attr('data-description', response.places[i].activities[0].description);
+                    .attr('data-description', response.places[i].activities[0].description)
+                    .attr('data-latitude', response.places[i].lat)
+                    .attr('data-longitude', response.places[i].lon)
+                    .attr('data-directions', response.places[i].directions);
                 var carouselAtag = $('<a>').addClass('carousel-item');
                 carouselAtag.append(carouselImg).appendTo(carouselDiv);
             }
@@ -181,7 +185,13 @@ $(document).ready(function() {
 
 $("#carousel").on('click', ".carouselImg", function(event) {
     var type = $(event.target).attr("data-type");
-    var description = $(event.target).attr('data-description')
+    var description = $(event.target).attr('data-description');
     $('#info').html(type + "<br><br>" + description);
+    var activityLat = parseFloat($(event.target).attr('data-latitude'));
+    var activityLong = parseFloat($(event.target).attr('data-longitude'));
+    var newPin = new google.maps.Marker({
+        position: { lat: (activityLat), lng: (activityLong) },
+        map: map
+    });
     stop();
 });
