@@ -110,9 +110,6 @@ function activitySearch(city) {
         var carouselDiv = $('<div>').addClass('carousel');
         for (var i = 0; i < 10; i++) {
             if (response.places[i].activities[0]) {
-                //console.log(response.places[i].lat);
-                //console.log(response.places[i].lon);
-                //console.log(response.places[i].directions);
                 var carouselImg = $('<img>').addClass('carouselImg')
                     .attr('src', response.places[i].activities[0].thumbnail)
                     .attr('data-type', response.places[i].activities[0].activity_type_name)
@@ -120,6 +117,7 @@ function activitySearch(city) {
                     .attr('data-latitude', response.places[i].lat)
                     .attr('data-longitude', response.places[i].lon)
                     .attr('data-directions', response.places[i].directions);
+                console.log(response.places[i].directions);
                 var carouselAtag = $('<a>').addClass('carousel-item');
                 carouselAtag.append(carouselImg).appendTo(carouselDiv);
             }
@@ -186,9 +184,13 @@ $(document).ready(function() {
 $("#carousel").on('click', ".carouselImg", function(event) {
     var type = $(event.target).attr("data-type");
     var description = $(event.target).attr('data-description');
+    var trailDirections = $(event.target).attr('data-directions');
     $('#info').html(type + "<br><br>" + description);
+    $("#directions").html("Directions" + "<br><br>" + trailDirections);
     var activityLat = parseFloat($(event.target).attr('data-latitude'));
     var activityLong = parseFloat($(event.target).attr('data-longitude'));
+
+
     var newPin = new google.maps.Marker({
         position: { lat: (activityLat), lng: (activityLong) },
         map: map
