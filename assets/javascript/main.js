@@ -46,7 +46,7 @@ function geocodeAddress(geocoder, resultsMap) {
     });
 }
 
-//Function that does an API call from WeatherUnderground from the user entered data
+//Function that does an API call from WeatherUnderground from the user entered data(location)
 function weatherSearch(city, state) {
     var weather = {
         "async": true,
@@ -88,7 +88,7 @@ function mapCode(city, state) {
     });
 }
 
-//Function that does an API call from trailAPI from the user entered data
+//Function that does an API call from trailAPI from the user entered data(location)
 function activitySearch(city) {
     var settings = {
         "async": true,
@@ -106,6 +106,7 @@ function activitySearch(city) {
     $.ajax(settings).done(function(response) {
         console.log(response);
         var carouselDiv = $('<div>').addClass('carousel');
+        var pDiv = $('<p>').addClass("white-text");
         for (var i = 0; i < response.places.length; i++) {
             if (response.places[i].activities[0]) {
                 var carouselImg = $('<img>').addClass('carouselImg')
@@ -117,6 +118,10 @@ function activitySearch(city) {
                     .attr('data-directions', response.places[i].directions);
                 var carouselAtag = $('<a>').addClass('carousel-item');
                 carouselAtag.append(carouselImg).appendTo(carouselDiv);
+                // var trailName = response.places[i].activities[0].name;
+                // trailName.append(pDiv).appendTo(carouselDiv);
+                console.log(response.places[i].activities[0].name);
+
             }
         }
         carouselDiv.appendTo('#carousel');
@@ -142,17 +147,13 @@ $(document).ready(function() {
     var carousel_interval = 1000;
 
     var int;
-
+    //readys the carousel function
     function run() {
         int = setInterval(function() {
             $('.carousel').carousel('next');
         }, carousel_interval);
     }
-
-    function stop() {
-        clearInterval(int);
-    }
-
+    //Function that runs everything.  Once you click on explore everything takes place
     $("#explore").on("click", function() {
         run();
         $("#home").hide();
@@ -164,7 +165,7 @@ $(document).ready(function() {
         activitySearch(city);
         weatherSearch(city, state);
         mapCode(city, state);
-
+        //Function that allows the background images to rotate and fade in/out
         $('#slideshow').show().cycle({
             fx: 'fade',
             pager: '#smallnav',
@@ -177,7 +178,7 @@ $(document).ready(function() {
     $('.carousel').hover(stop, run);
 });
 
-
+//function that when you click on the carousel image, directions/description/pin on map pops up
 $("#carousel").on('click', ".carouselImg", function(event) {
     var type = $(event.target).attr("data-type");
     var description = $(event.target).attr('data-description');
@@ -186,8 +187,6 @@ $("#carousel").on('click', ".carouselImg", function(event) {
     $("#directions").html("Directions" + "<br><br>" + trailDirections);
     var activityLat = parseFloat($(event.target).attr('data-latitude'));
     var activityLong = parseFloat($(event.target).attr('data-longitude'));
-
-
     var newPin = new google.maps.Marker({
         position: { lat: (activityLat), lng: (activityLong) },
         map: map
