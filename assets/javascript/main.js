@@ -1,7 +1,9 @@
-// Autocomplete API
+// Autocomplete API and global variables
 var placeSearch, autocomplete;
 var map;
 var mapPins = [];
+var lat;
+var long;
 
 function initAutocomplete() {
     // Create the autocomplete object, restricting the search to geographical
@@ -15,9 +17,9 @@ function initAutocomplete() {
 }
 
 //Function for initiallizing the google map with the data from the user entered location
-function initMap(myLat, myLong) {
+function initMap(lat, long) {
     initAutocomplete();
-    var myCenter = { lat: myLat, lng: myLong };
+    var myCenter = { lat: lat, lng: long };
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 8,
         center: myCenter
@@ -82,11 +84,9 @@ function mapCode(city, state) {
         "method": "GET"
     }
     $.ajax(gps).done(function(response) {
-        var lat = response.results[0].geometry.location.lat;
-        var long = response.results[0].geometry.location.lng;
-        var myLat = parseFloat(lat);
-        var myLong = parseFloat(long);
-        initMap(myLat, myLong);
+        lat = parseFloat(response.results[0].geometry.location.lat);
+        long = parseFloat(response.results[0].geometry.location.lng);
+        initMap(lat, long);
     });
 }
 
