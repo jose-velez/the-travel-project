@@ -90,6 +90,32 @@ function mapCode(city, state) {
     });
 }
 
+// Removes the markers from the map, but keeps them in the array.
+function clearMarkers() {
+    setMapOnAll(null);
+}
+
+// Deletes all markers in the array by removing references to them.
+function deleteMarkers() {
+    clearMarkers();
+    mapPins = [];
+}
+
+//function to add new markers/pins to the google map
+function addMarker(activityLat, activitieLong) {
+    var pinColor = "001fff";
+    var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
+        new google.maps.Size(21, 34),
+        new google.maps.Point(0, 0),
+        new google.maps.Point(10, 34));
+    var newPin = new google.maps.Marker({
+        position: { lat: (activityLat), lng: (activityLong) },
+        map: map,
+        icon: pinImage
+    });
+
+}
+
 //Function that does an API call from trailAPI from the user entered data(location)
 function activitySearch(city) {
     var settings = {
@@ -123,8 +149,6 @@ function activitySearch(city) {
                 carouselAtag.append(carouselImg).appendTo(carouselDiv);
                 // var trailName = response.places[i].activities[0].name;
                 // trailName.append(pDiv).appendTo(carouselDiv);
-                console.log(response.places[i].activities[0].name);
-
             }
         }
         carouselDiv.appendTo('#carousel');
@@ -202,5 +226,12 @@ $("#carousel").on('click', ".carouselImg", function(event) {
         map: map,
         icon: pinImage
     });
-    stop();
+
+
+
+
+}
+//mapPins.push(newPin);
+// console.log(mapPins);
+stop();
 });
