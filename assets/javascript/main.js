@@ -1,5 +1,9 @@
-// Autocomplete API
-var placeSearch, autocomplete, map;
+// Autocomplete API and global variables
+var placeSearch, autocomplete;
+var map;
+var mapPins = [];
+var lat;
+var long;
 
 function initAutocomplete() {
     // Create the autocomplete object, restricting the search to geographical
@@ -13,9 +17,9 @@ function initAutocomplete() {
 }
 
 //Function for initiallizing the google map with the data from the user entered location
-function initMap(myLat, myLong) {
+function initMap(lat, long) {
     initAutocomplete();
-    var myCenter = { lat: myLat, lng: myLong };
+    var myCenter = { lat: lat, lng: long };
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 8,
         center: myCenter
@@ -46,7 +50,7 @@ function geocodeAddress(geocoder, resultsMap) {
     });
 }
 
-//Function that does an API call from WeatherUnderground from the user entered data
+//Function that does an API call from WeatherUnderground from the user entered data(location)
 function weatherSearch(city, state) {
     var weather = {
         "async": true,
@@ -80,18 +84,13 @@ function mapCode(city, state) {
         "method": "GET"
     }
     $.ajax(gps).done(function(response) {
-        console.log(response);
-        var lat = response.results[0].geometry.location.lat;
-        var long = response.results[0].geometry.location.lng;
-        var myLat = parseFloat(lat);
-        var myLong = parseFloat(long);
-        console.log(lat);
-        console.log(long);
-        initMap(myLat, myLong);
+        lat = parseFloat(response.results[0].geometry.location.lat);
+        long = parseFloat(response.results[0].geometry.location.lng);
+        initMap(lat, long);
     });
 }
 
-//Function that does an API call from trailAPI from the user entered data
+//Function that does an API call from trailAPI from the user entered data(location)
 function activitySearch(city) {
     var settings = {
         "async": true,
@@ -107,21 +106,25 @@ function activitySearch(city) {
     }
 
     $.ajax(settings).done(function(response) {
+        console.log(response);
         var carouselDiv = $('<div>').addClass('carousel');
-        for (var i = 0; i < 10; i++) {
+        var pDiv = $('<p>').addClass("white-text");
+        for (var i = 0; i < response.places.length; i++) {
             if (response.places[i].activities[0]) {
-                //console.log(response.places[i].lat);
-                //console.log(response.places[i].lon);
-                //console.log(response.places[i].directions);
                 var carouselImg = $('<img>').addClass('carouselImg')
                     .attr('src', response.places[i].activities[0].thumbnail)
                     .attr('data-type', response.places[i].activities[0].activity_type_name)
                     .attr('data-description', response.places[i].activities[0].description)
                     .attr('data-latitude', response.places[i].lat)
                     .attr('data-longitude', response.places[i].lon)
-                    .attr('data-directions', response.places[i].directions);
+                    .attr('data-directions', response.places[i].directions)
+                    .attr('data-name', response.places[i].activities[0].name);
                 var carouselAtag = $('<a>').addClass('carousel-item');
                 carouselAtag.append(carouselImg).appendTo(carouselDiv);
+                // var trailName = response.places[i].activities[0].name;
+                // trailName.append(pDiv).appendTo(carouselDiv);
+                console.log(response.places[i].activities[0].name);
+
             }
         }
         carouselDiv.appendTo('#carousel');
@@ -147,17 +150,13 @@ $(document).ready(function() {
     var carousel_interval = 1000;
 
     var int;
-
+    //readys the carousel function
     function run() {
         int = setInterval(function() {
             $('.carousel').carousel('next');
         }, carousel_interval);
     }
-
-    function stop() {
-        clearInterval(int);
-    }
-
+    //Function that runs everything.  Once you click on explore everything takes place
     $("#explore").on("click", function() {
         run();
         $("#home").hide();
@@ -169,7 +168,7 @@ $(document).ready(function() {
         activitySearch(city);
         weatherSearch(city, state);
         mapCode(city, state);
-
+        //Function that allows the background images to rotate and fade in/out
         $('#slideshow').show().cycle({
             fx: 'fade',
             pager: '#smallnav',
@@ -182,16 +181,26 @@ $(document).ready(function() {
     $('.carousel').hover(stop, run);
 });
 
-
+//function that when you click on the carousel image, directions/description/pin on map pops up
 $("#carousel").on('click', ".carouselImg", function(event) {
     var type = $(event.target).attr("data-type");
     var description = $(event.target).attr('data-description');
+    var trailDirections = $(event.target).attr('data-directions');
+    var trailName = $(event.target).attr('data-name');
     $('#info').html(type + "<br><br>" + description);
+    $("#directions").html("Directions to: " + trailName + "<br><br>" + trailDirections);
     var activityLat = parseFloat($(event.target).attr('data-latitude'));
     var activityLong = parseFloat($(event.target).attr('data-longitude'));
+    //Changes the google maps pin color so that the new one is a different from the main one
+    var pinColor = "001fff";
+    var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
+        new google.maps.Size(21, 34),
+        new google.maps.Point(0, 0),
+        new google.maps.Point(10, 34));
     var newPin = new google.maps.Marker({
         position: { lat: (activityLat), lng: (activityLong) },
-        map: map
+        map: map,
+        icon: pinImage
     });
     stop();
 });

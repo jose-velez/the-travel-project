@@ -131,5 +131,14 @@
         overflow: auto;
         position: fixed;
         bottom: 40px;
-        margin-right: 200px;
+        max-width: 30%
+    }
+    
+    #directions {
+        height: 200px;
+        overflow: auto;
+        position: fixed;
+        bottom: 40px;
+        color: white;
+        max-width: 30%;
     }
