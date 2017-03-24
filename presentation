@@ -1,25 +1,59 @@
-Hello everybody, My name is Brad Goldsmith, this is Willis Dorden and that is Jose Velez, and we are:
-Team GetOutandGo.
-All of us try to be healthy and live active lifestyles and we've found this somewhat tough when visiting a new area, 
-	weather for work or just a personal vacation.
-We wanted a way of staying active (and we wanted more than local gyms)
-	and I'm not a runner so running is just out of the question.
-With our application we have made it easier to find ways to enjoy the great outdoors.  
-When you come to our homepage you'll see a very lovely background image of the great outdoors,
-	a link to our homepage on the top left and a link to recent searches on the top right.  Those are done
-	through materialize framework.  I did the majority of the front end while Willis and Jose worked on the backend.  
-	And as any good group we all helped out where needed.  
-********************
-********************
----Here we'll type in a city and run the site
----Willis takes over explaining his work on the weather/carousel
----Jose talks about his recent searches and storing them in firebase/putting them in the navbar
----Rotating background images:
-	Used a new tool called JqueryCycle, which has defualt animations and let's you set a timer for fading in/out.  
+Good Morning/Afternoon everybody.  My name is Brad Goldsmith, this is Willis Dorden, and Jose Velez
+	and we are team GetOutandGo and this is our project (load up the html file!!!!!)
 
-We found trailAPI through travel searches and found it to be the best available API for hiking trails, mountain bike 
-	trails, and camping sites.  So basically on the main page you'll see our seach bar and you enter a city/state and we take that data and show you whats near you.  We went with the google auotocomplete to make searching a tad easier.  We manipulated that "input" data so we could send out the city/state information to various APIs so that we could plenish our results page.  
-One thing that we did notice throughout this project is that as useful as the trailAPI is, it is limited.  We are 	
-	hoping to contact and work with them in the future to help them fill out more results.  We also eventually plan to put in user feedback so that someone that actually used this website and actually hiked the trail can give their feedback on the trail.  This will hopefully also allow for helping us build up their API with more photos and information about trails/camp sites.  
-Also we were wanting to add GPS locations for all of the trail so you could see them on the map but we ran out of 
-	time.  Again in the future we would love for when you click on the trail it pins the location on the maps, then there will be a button for "Get Directions"  Click on that and you enter your address and based on googlesAPI we could give you turn by turn directions for this desination, which would be more useful for the mobile version becuase let's be honest most people don't print directions anymore then just use their phones.  
+All three of us try to be healthy and live active lifestyles and have noticed it to be cumbersome 
+	when on a vacation or just out for the day.  Let's be honest here I don't know about you all but
+	I don't actually get much vacation time from work so a day off is a vaction to me.
+	And this is where our website/application comes into play.  
+	We've made it a bit easier to find a fun outdoor activity or just a way to enjoy the great outdoors.
+
+***********************
+(I feel like that takes care of Lisa's pdf file description/motivation/results)
+***********************
+
+Team Efforts:
+	Brad work mainly on the front end while Willis and Jose did the back end.
+		*We also all jumped in were needed and made sure to help each other out if any problems arose(
+			which seemed to happen all to often).
+***********************
+Here we can each go into detail about our contributions
+I'll type mine up and you all do the same for yours and we just have to kinda memorize them I guess, 
+	since I don't think we can or should read off the screen the entire time.   But a good outline can't
+	hurt.
+
+Brad -	I built the majority of the front end with input from both Jose and Willis.  We chose to use the
+		materialize framework, one because it's kinda cool, and two because it's a new technology that we 
+		haven't used so it was a good requirement for our project.  
+		We also decided to build from scratch instead of using a template because well even though it was a little
+			harder it met the requirements and let us put our own touches on it.  
+		So as you can see our home page is rather basic.  The top nav-bar has a home and recent search links that
+			will stay with us throughout the page, as well as a sticky footer that has our team name.  
+		We used google autocomplete in our seach bar to help the user make an easier input choice plus it also 
+			looks cool and is kinda badass.  
+		When you click on explore that's when all the magic happens and I'll hand it over to Willis and Jose and 
+			they can take it from there.
+Willis - backend production(trailAPI, wundergroundAPI)
+Jose - backend/fontend production(googleMaps API/Geocoding)
+Brad - Fill in when needed, as well as Willis/Jose
+
+Problems we faced:
+	We found it rather difficult to actually "pick out an idea"
+	We also found github rather difficult as far as the branching/merging goes, mainly because we didn't
+		want to accidentially delete our information.  Towards the end it was easier but since we all were
+		helping out where needed it made some of the merging more difficult than expected.
+	Our schedules also just suck since we are all opposite so we couldn't really meet outside of class and 
+		even though we all were working we found that working together was a tad more productive for our 
+		overall group progess.
+	We also found that even though the travelAPI is rather cool and unique, it is not near as full as we hoped.
+
+Future of our Project:
+	We hope to work with travelAPI and google to help them fill out more of their API, that way more results will 
+		be shown.  I mean if you type in Denver, CO you get 10 results where there are probably 100+ in that area, 
+		but again that is the future.  
+	We would also like to add a User Feedback area when someone who actually hiked the trail or camped out can rate
+		it and let others know what they think.  It would also be really cool if we could have a section too where the user can input a specific trail/campsite that is not listed and we could take that information and pass it 
+		along to the API so it can be added.  
+	We also want to build out a GPS implentation so that when you click on the trail it gives you turn by turn 
+		directions to the trail from your location. 
+	
+
