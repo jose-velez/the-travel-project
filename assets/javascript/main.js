@@ -1,5 +1,7 @@
 // Autocomplete API
-var placeSearch, autocomplete, map;
+var placeSearch, autocomplete;
+var map;
+var mapPins = [];
 
 function initAutocomplete() {
     // Create the autocomplete object, restricting the search to geographical
@@ -115,7 +117,8 @@ function activitySearch(city) {
                     .attr('data-description', response.places[i].activities[0].description)
                     .attr('data-latitude', response.places[i].lat)
                     .attr('data-longitude', response.places[i].lon)
-                    .attr('data-directions', response.places[i].directions);
+                    .attr('data-directions', response.places[i].directions)
+                    .attr('data-name', response.places[i].activities[0].name);
                 var carouselAtag = $('<a>').addClass('carousel-item');
                 carouselAtag.append(carouselImg).appendTo(carouselDiv);
                 // var trailName = response.places[i].activities[0].name;
@@ -183,13 +186,21 @@ $("#carousel").on('click', ".carouselImg", function(event) {
     var type = $(event.target).attr("data-type");
     var description = $(event.target).attr('data-description');
     var trailDirections = $(event.target).attr('data-directions');
+    var trailName = $(event.target).attr('data-name');
     $('#info').html(type + "<br><br>" + description);
-    $("#directions").html("Directions" + "<br><br>" + trailDirections);
+    $("#directions").html("Directions to: " + trailName + "<br><br>" + trailDirections);
     var activityLat = parseFloat($(event.target).attr('data-latitude'));
     var activityLong = parseFloat($(event.target).attr('data-longitude'));
+    //Changes the google maps pin color so that the new one is a different from the main one
+    var pinColor = "001fff";
+    var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
+        new google.maps.Size(21, 34),
+        new google.maps.Point(0, 0),
+        new google.maps.Point(10, 34));
     var newPin = new google.maps.Marker({
         position: { lat: (activityLat), lng: (activityLong) },
-        map: map
+        map: map,
+        icon: pinImage
     });
     stop();
 });
