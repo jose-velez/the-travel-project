@@ -207,6 +207,7 @@ $(document).ready(function() {
             //  Calling the firebase to display the recent searches
 
             database.ref().on("value", function(snapshot) {
+                console.log("is working");
                 var city = snapshot.val();
                 console.log(city);
                 var cityArr = Object.keys(city);
@@ -232,14 +233,17 @@ $(document).ready(function() {
                 }
                 console.log(lastObjs);
                 console.log(displayCity);
+                var newList = $("<ul>").addClass("dropdown-content");
+                newList.attr("id", "dropdown1");
                 for (i = 0; i < displayCity.length; i++) {
                     var list = $('<li>').addClass('recentCity')
                     list.attr("data", displayCity[i]);
                     var recentCity = displayCity[i];
                     list.append(recentCity);
+                    newList.append(list);
 
                 }
-                  $("#dropdown1").html(list);
+                $("#dropdown").append(list);
 
 
 
