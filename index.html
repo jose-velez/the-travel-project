@@ -9,6 +9,7 @@
     <script src="https://code.jquery.com/jquery-2.2.3.js" integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4=" crossorigin="anonymous"></script>
     <!-- Link to Firebase -->
     <script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
     <!-- Link to moment.js -->
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
     <!-- Compiled and minified CSS -->
@@ -44,49 +45,44 @@
         <img src="assets/images/20.jpg" class="bgM">
     </div>
     <div class="header">
-        <ul id="dropdown1" class="dropdown-content">
-            <li>
-                <a href="#!"></a>
-            </li>
-            <li>
-                <a href="#!"></a>
-            </li>
-            <li class="divider"></li>
-            <li>
-                <a href="#!"></a>
-            </li>
-        </ul>
-        <nav class="transparent">
-            <div class="nav-wrapper">
-                <a href="index.html" class="home">Home</a>
-                <ul class="right hide-on-med-and-down">
-                    <!-- Dropdown Trigger -->
-                    <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Recent Searches<i class="material-icons right"></i></a></li>
-                </ul>
-            </div>
-        </nav>
-    </div>
-    <div class="container" id="home">
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <div class="row">
-            <div class="input-field col s4 offset-s4 center-align">
-                <div id="locationField" class="center-align">
-                    <input id="autocomplete" placeholder="Enter a Location" type="text" class="validate center-align">
-                    <label for="autocomplete" class="center-align location"></label>
+        <div class="header" id="dropdown">
+            <ul id="dropdown1" class="dropdown-content">
+                <li id="0" class="recentCity"></li>
+                <li id="1" class="recentCity"></li>
+                <li id="2" class="recentCity"></li>
+                <li id="3" class="recentCity"></li>
+            </ul>
+            <nav class="transparent">
+                <div class="nav-wrapper">
+                    <a href="index.html" class="home">Home</a>
+                    <ul class="right hide-on-med-and-down">
+                        <!-- Dropdown Trigger -->
+                        <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Recent Searches<i class="material-icons right"></i></a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <div class="container" id="home">
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <div class="row">
+                <div class="input-field col s4 offset-s4 center-align">
+                    <div id="locationField" class="center-align">
+                        <input id="autocomplete" placeholder="Enter a Location" type="text" class="validate center-align">
+                        <label for="autocomplete" class="center-align location"></label>
+                    </div>
                 </div>
             </div>
+            <div class="row">
+                <p align="center">
+                    <a class="waves-effect waves-light btn offset-s4" id="explore">Explore</a>
+                </p>
+            </div>
         </div>
-        <div class="row">
-            <p align="center">
-                <a class="waves-effect waves-light btn offset-s4" id="explore">Explore</a>
-            </p>
-        </div>
-    </div>
     </div>
     <div class="container" id="results">
         <div class="row">
