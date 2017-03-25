@@ -84,13 +84,13 @@ function weatherSearch(city, state) {
     $.ajax(weather).done(function(response) {
         var weatherDiv = $('<div>').addClass('weatherDiv');
         var weatherImg = $('<img>').addClass('weatherImg').attr('src', response.current_observation.icon_url);
-        weatherDiv.append(weatherImg).appendTo('.card-image');
+        $(".card-image").empty().append(weatherDiv.append(weatherImg));
         var currentWeather = $('<div>').addClass('currentWeather');
         var currentTemp = $('<p>').addClass('currTemp').text('Temp: ' + response.current_observation.temp_f + "°F");
         var currentLocation = $('<p>').addClass('location').text(response.current_observation.display_location.city);
         var time = $('<p>').addClass('localTime').text(response.current_observation.local_time);
         var forcast = $('<p>').addClass('forcast').text('Forecast: ' + response.current_observation.weather);
-        currentWeather.append(currentLocation, currentTemp, forcast).appendTo(".card-content");
+        $(".card-content").empty().append(currentWeather.append(currentLocation, currentTemp, forcast));
 
 
     });
@@ -198,8 +198,7 @@ function activitySearch(city) {
 
             }
         }
-        carouselDiv.appendTo('#carousel');
-
+        $("#carousel").empty().append(carouselDiv);
         $('.carousel').carousel({ duration: 1000 });
 
     });
@@ -298,7 +297,9 @@ $(document).ready(function() {
         run();
         console.log("is working");
         $("#home").hide();
-        $("#results").detach();
+        $("#results").show();
+        $("#directions").empty();
+        $("#info").empty();
         var stateCity = $(this).attr("data");
         console.log(stateCity);
         var split = stateCity.split(",");
