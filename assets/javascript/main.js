@@ -77,7 +77,7 @@ function weatherSearch(city, state) {
     var weather = {
         "async": true,
         "crossDomain": true,
-        "url": "http://api.wunderground.com/api/d04d4a5c28ba5311/conditions/q/" + state + "/" + city + ".json",
+        "url": "https://api.wunderground.com/api/d04d4a5c28ba5311/conditions/q/" + state + "/" + city + ".json",
         "method": "GET"
     }
 
