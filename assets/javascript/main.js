@@ -298,7 +298,7 @@ $(document).ready(function() {
         run();
         console.log("is working");
         $("#home").hide();
-        $("#results").show();
+        $("#results").detach();
         var stateCity = $(this).attr("data");
         console.log(stateCity);
         var split = stateCity.split(",");
