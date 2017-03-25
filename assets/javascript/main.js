@@ -200,7 +200,7 @@ $(document).ready(function() {
         database.ref().push({
             city: stateCity
         });
-
+        $('.carousel').hover(stop, run);
     });
 
 
@@ -271,6 +271,7 @@ $(document).ready(function() {
         })
     });
 });
+
 //function that when you click on the carousel image, directions/description/pin on map pops up
 $("#carousel").on('click', ".carouselImg", function(event) {
     var type = $(event.target).attr("data-type");
