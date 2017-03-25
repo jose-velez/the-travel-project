@@ -112,6 +112,55 @@ function mapCode(city, state) {
     });
 }
 
+//Function for adding a pin/marker on the map and the new marker is a new color
+function addMarker(activityLat, activityLong) {
+    if (mapPins.length < 1) {
+        var pinColor = "001fff";
+        var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
+            new google.maps.Size(21, 34),
+            new google.maps.Point(0, 0),
+            new google.maps.Point(10, 34));
+        var newPin = new google.maps.Marker({
+            position: { lat: (activityLat), lng: (activityLong) },
+            map: map,
+            icon: pinImage
+        });
+    } else {
+        deleteMarkers();
+        var pinColor = "001fff";
+        var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
+            new google.maps.Size(21, 34),
+            new google.maps.Point(0, 0),
+            new google.maps.Point(10, 34));
+        var newPin = new google.maps.Marker({
+            position: { lat: (activityLat), lng: (activityLong) },
+            map: map,
+            icon: pinImage
+        });
+
+    }
+    mapPins.push(newPin);
+
+}
+
+// Removes the markers from the map, but keeps them in the array.
+function clearMarkers() {
+    setMapOnAll(null);
+}
+
+// Deletes all markers in the array by removing references to them.
+function deleteMarkers() {
+    clearMarkers();
+    markers = [];
+}
+
+// Sets the map on all markers in the array.
+function setMapOnAll(map) {
+    for (var i = 0; i < mapPins.length; i++) {
+        mapPins[i].setMap(map);
+    }
+}
+
 //Function that does an API call from trailAPI from the user entered data(location)
 function activitySearch(city) {
     var settings = {
@@ -282,16 +331,7 @@ $("#carousel").on('click', ".carouselImg", function(event) {
     $("#directions").html("Directions to: " + trailName + "<br><br>" + trailDirections);
     var activityLat = parseFloat($(event.target).attr('data-latitude'));
     var activityLong = parseFloat($(event.target).attr('data-longitude'));
-    //Changes the google maps pin color so that the new one is a different from the main one
-    var pinColor = "001fff";
-    var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
-        new google.maps.Size(21, 34),
-        new google.maps.Point(0, 0),
-        new google.maps.Point(10, 34));
-    var newPin = new google.maps.Marker({
-        position: { lat: (activityLat), lng: (activityLong) },
-        map: map,
-        icon: pinImage
-    });
+    addMarker(activityLat, activityLong);
+
     stop();
 });
