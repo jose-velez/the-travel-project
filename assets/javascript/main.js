@@ -5,6 +5,28 @@ var mapPins = [];
 var lat;
 var long;
 
+var config = {
+    apiKey: "AIzaSyDlROAKalBipjSv9O4KuOuytF68mfv2X-A",
+    authDomain: "hiking-project.firebaseapp.com",
+    databaseURL: "https://hiking-project.firebaseio.com",
+    storageBucket: "hiking-project.appspot.com",
+    messagingSenderId: "46073004583"
+};
+firebase.initializeApp(config);
+
+var database = firebase.database();
+
+
+
+// Autocomplete API
+var placeSearch, autocomplete, map;
+// Autocomplete API and global variables
+var placeSearch, autocomplete;
+var map;
+var mapPins = [];
+var lat;
+var long;
+
 function initAutocomplete() {
     // Create the autocomplete object, restricting the search to geographical
     // location types.
@@ -132,7 +154,6 @@ function activitySearch(city) {
         $('.carousel').carousel({ duration: 1000 });
 
     });
-
 }
 
 
@@ -176,11 +197,80 @@ $(document).ready(function() {
             speed: 3000,
             timeout: 5000
         });
+        database.ref().push({
+            city: stateCity
+        });
 
     });
-    $('.carousel').hover(stop, run);
-});
 
+
+    database.ref().on("value", function(snapshot) {
+        console.log("is working");
+        var city = snapshot.val();
+        console.log(city);
+        var cityArr = Object.keys(city);
+        console.log(cityArr);
+        arrLength = cityArr.length - 1;
+        lastFive = (cityArr.length - 5);
+        console.log(arrLength);
+        console.log(lastFive);
+        var search = [];
+        var j = 0;
+        var lastKeys = [];
+        //For loop to get the last 5 recent searches
+        for (var i = arrLength; i > lastFive; i--) {
+            console.log("is working");
+            search[j] = cityArr[i];
+            j++;
+        }
+        var lastObjs = [];
+        var displayCity = [];
+        for (var i = 0; i < search.length; i++) {
+            lastObjs[i] = city[search[i]];
+            displayCity[i] = lastObjs[i].city;
+        }
+        console.log(lastObjs);
+        console.log(displayCity);
+        for (i = 0; i < displayCity.length; i++) {
+            var newItem = $("#" + i);
+            newItem.attr("data", displayCity[i]);
+            var recentCity = displayCity[i];
+            newItem.html(recentCity)
+
+        }
+
+
+
+
+
+    });
+
+    $("#dropdown1").on("click", ".recentCity", function(event) {
+        run();
+        console.log("is working");
+        $("#home").hide();
+        $("#results").show();
+        var stateCity = $(this).attr("data");
+        console.log(stateCity);
+        var split = stateCity.split(",");
+        var city = split[0];
+        var state = split[1];
+        console.log(split);
+        console.log(city);
+        console.log(state);
+        activitySearch(city);
+        weatherSearch(city, state);
+        mapCode(city, state);
+
+        $('#slideshow').show().cycle({
+            fx: 'fade',
+            pager: '#smallnav',
+            pause: 1,
+            speed: 3000,
+            timeout: 5000
+        })
+    });
+});
 //function that when you click on the carousel image, directions/description/pin on map pops up
 $("#carousel").on('click', ".carouselImg", function(event) {
     var type = $(event.target).attr("data-type");
